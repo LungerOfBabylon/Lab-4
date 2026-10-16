@@ -1,3 +1,0 @@
-Charlie
-Jo 
-Zander
