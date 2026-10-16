@@ -20,9 +20,14 @@ public class Tour {
     }
     public void draw() {            // draw the tour to standard draw
         Node current = first;
-        for (int  i = 1; i <= n; i++) {
+        for (int  i = 1; i < n; i++) {
             current.p.draw();
-            current.p.drawTo(current.next.p);
+            if (current.next != null) {
+                current.p.drawTo(current.next.p);
+            }
+            else {
+                current.p.drawTo(first.p);
+            }
             current = current.next;
         }
     }
