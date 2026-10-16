@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.*
 
 public class Tour {
 	public Tour(){ // create an empty tour
@@ -7,9 +8,10 @@ public class Tour {
 	public void draw(){ // draw the tour to standard draw
 	}
 	public int size(){ // number of points on tour
+		return 0;
 	}
 	public double distance(){ // return the total distance of the tour
-	    
+		return 0.0;
 	}
 	public void insertNearest(Point p){ // insert p using nearest neighbor heuristic
 	    
