@@ -1,5 +1,4 @@
-import edu.princeton.cs.algs4.*
-
+import edu.princeton.cs.algs4.*;
 public class Tour {
 	public Tour(){ // create an empty tour
 	}
