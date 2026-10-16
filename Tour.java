@@ -1,3 +1,5 @@
+import edu.princeton.cs.algs4.*;
+
 public class Tour {
     private Node first;
     private int n;
