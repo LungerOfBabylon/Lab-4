@@ -62,7 +62,35 @@ public class Tour {
         closest.next = newNode;
         n++;
     }
-    public void insertSmallest(Point p) {           // insert p using smallest increase heuristic
+    public void insertSmallest(Point p) { // insert p using smallest increase heuristic
+         Node step = new Node();
+        Node curr = new Node();
+        Node oldNext = new Node();
+        curr = first;
+        step = first.next; 
+        step.p = p;
+        first.next = step;
+        double minDistance = distance();
+        int index = 0;
+
+        for(int i = 0; i < n; i++) {
+              oldNext = step.next;
+             step = step.next;
+             curr.next.next = oldNext;
+             curr = curr.next;
+             double newDistance = distance();
+             if (newDistance < minDistance){
+                minDistance = newDistance;
+                index = i;
+             }
+        }
+        curr = first;
+        for(int j = 0; j < index; j++) {
+            curr = curr.next;
+        }
+        oldNext = curr;
+        curr.next = step;
+        step = oldNext;
         n++;
     }
 
