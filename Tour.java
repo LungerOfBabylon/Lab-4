@@ -67,7 +67,39 @@ public class Tour {
         n++;
     }
     public void insertSmallest(Point p) { // insert p using smallest increase heuristic
-         Node step = new Node(); // the new node to be inserted
+       
+            // a key thing to undertand is that bestPos/Step is affecting what it's looking at, not a new node being inserted
+            Node step = new Node(); // the node that steps through the list
+            Node bestPos = new Node(); // the node that is the best position to insert the newNode infront of
+            double minDist = Double.MAX_VALUE; // this sets the minDist to the largest possible value so that any distance will be smaller than it, it's not ideal as it's a lot of memory but it works
+            step = first; // step points at the first node
+            while(step != null){
+                double dist = step.p.distanceTo(p) + step.next.p.distanceTo(p) - step.p.distanceTo(step.next.p); // calculates the distance to the new point from the current and next nodes minus the distance between them, more explanation below
+                if(dist < minDist){ // checks if this distance is better
+                    minDist = dist; // update the minimum distance
+                    bestPos = step; // saves the best position to insert the newNode infront of
+                }
+                step = step.next; // move to the next node
+            }
+            Node newNode = new Node(); // the new node to be inserted
+            newNode.p = p; // set the point of the new node to p
+            newNode.next = bestPos.next; // set the next of the new node to the next of the best position
+            bestPos.next = newNode; // set the next of the best position to the new
+            n++; // increment the size of the tour
+            
+            
+            /*  Further explanation for the dist calculation, basically instead of calling distance() which would have to run through the entire list this instead calulates 
+                calculates just the new distance bewtween the three nodes, the first node being what points to the new node and the dsecond being the new node and the third being where new node points
+                you subtract that original distance between the first and third so you will get how much the distance increased by addding the new node, not just the new distance
+
+
+
+ 
+        This old code which SHOULD work now, if not then it's just some small bugs, however it is far less effieceint than the above code, but both are interesting approches
+        this code actually inserts the new node at each point and then calculates the entire lists distance, saving how far into the list that the best position was and then 
+        traversing to that point and inserting the new node there, but this is way worse for obviouse reasons, but it's still cool and was my first attempt
+        
+        Node step = new Node(); // the new node to be inserted
         Node curr = new Node(); // points at the node that is pointing at step
         Node oldNext = new Node(); // points at the node that step will be inserted infront of
         double minDist = 0.0;
@@ -96,8 +128,8 @@ public class Tour {
                 index = i; // store the index of the node that was just inserted
             }
         }
-        for(int i = 0; i < index; i++){ // traverse to the node that is pointing at the node that step should be inserted infront of
-            if(i == index - 1){ // if the next node is the node that should point at step
+        for(int i = 0; i <= index; i++){ // traverse to the node that is pointing at the node that step should be inserted infront of
+            if(i == index){ // if the next node is the node that should point at step
             curr.next = step; // link the node that curr is pointing at to step
             if(curr.next != null) // if the node that curr is pointing at is not the last one
             step = curr.next.next; // link step to the node that curr.next was pointing at    
@@ -106,6 +138,7 @@ public class Tour {
             }
         }
         n++;
+        */
     }
 
 }
