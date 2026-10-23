@@ -45,6 +45,7 @@ public class Tour {
             distance += current.p.distanceTo(current.next.p);
             current = current.next;
         }
+        distance += current.p.distanceTo(first.p); 
         return distance;
     }
 
@@ -77,8 +78,14 @@ public class Tour {
 
         Node newNode = new Node(); // the new node to be inserted
         newNode.p = p; // set the point of the new node to p
-        if (first.next == null) {
+        if (first == null) {
             first = newNode; // if the list is empty, set the first node to the new node and return
+            newNode.next = null;
+            n++;
+            return;
+        }
+        if (first.next == null) {
+            first.next = newNode;
             newNode.next = null;
             n++;
             return;
@@ -90,8 +97,12 @@ public class Tour {
                                            // will be smaller than it, it's not ideal as it's a lot of memory but it works
         step = first; // step points at the first node
         while (step != null) {
-            double dist = step.p.distanceTo(p) + step.next.p.distanceTo(p) - step.p.distanceTo(step.next.p); // see below for further explanation of this calculation
-                                                                                                             
+        	Node next = step.next; // the node after step
+            if (next == null) {
+                next = first; // if step is the last node, wrap around to the first node
+            }
+            double dist = step.p.distanceTo(p) + next.p.distanceTo(p) - step.p.distanceTo(next.p); // see below for further explanation of this calculation
+
             if (dist < minDist) { // checks if this distance is better
                 minDist = dist; // update the minimum distance
                 bestPos = step; // saves the best position to insert the newNode infront of
